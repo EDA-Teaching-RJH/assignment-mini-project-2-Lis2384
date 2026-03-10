@@ -5,11 +5,19 @@ from datetime import datetime
 
 class Person:
     def __init__(self, name, phone):
-        self._name = name
-        self._phone = phone
+        self._name = ""
+        self._phone = ""
+        self.set_name(name)
+        self.set_phone(phone)
     
     def get_name(self):
         return self._name
+    
+    def set_name(self, name):
+        name = name.strip()
+        if not name:
+            raise ValueError("You must fill out a name")
+        self._name = name.title()
     
     def get_phone(self):
         return self._phone
