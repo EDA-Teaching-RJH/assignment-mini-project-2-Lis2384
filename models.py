@@ -22,6 +22,13 @@ class Person:
     def get_phone(self):
         return self._phone
     
+    def set_phone(self, phone):
+        phone = phone.strip()
+        phone_pattern = r"^\+?\d[\d\s-]{8,14}\d$"
+        if not re.fullmatch(phone_pattern, phone):
+            raise ValueError("You must fill out a valid number")
+        self._phone = phone
+    
     def get_email(self):
         return self._email
     
