@@ -12,13 +12,16 @@ class Person:
         return self._name
     
     def get_phone(self):
-        return self.phone
+        return self._phone
     
     def get_email(self):
         return self._email
     
     def get_created_at(self):
         return self._created_at
+    
+    def __str__(self):
+        return f"{self.get_name()} | {self.get_phone()} | {self.get_email()} | {self.get_created_at()}"
     
 
 class Contact(Person):
