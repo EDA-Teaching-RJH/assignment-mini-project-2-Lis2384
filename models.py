@@ -32,6 +32,13 @@ class Person:
     def get_email(self):
         return self._email
     
+    def set_email(self, email):
+        email = email.strip()
+        email_pattern = r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
+        if not re.fullmatch(email_pattern, email):
+            raise ValueError("You must fill out a valid email")
+        self._email = email.lower()
+    
     def get_created_at(self):
         return self._created_at
     
@@ -42,6 +49,7 @@ class Person:
 class Contact(Person):
     def __init__(self, name, phone, email):
         super().__init__(name,phone)
-        self._email = email
+        self._email = ""
+        self.set_email(email)
         self._created_at = datetime.now().strftime("%Y-%M-%D %H:%M:%S")
 
