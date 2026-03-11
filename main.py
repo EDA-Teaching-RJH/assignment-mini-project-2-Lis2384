@@ -7,7 +7,8 @@ while True:
     print("1) Add Contact")
     print("2) View Contacts")
     print("3) Search Contacts")
-    print("4) Exit")
+    print("4) Update Contact")
+    print("5) Exit")
     choice = input("Option: ")
 
     if choice == "1":
@@ -33,7 +34,7 @@ while True:
         else:
             print("Contact not found")
     
-    elif choice == "4":
+    elif choice == "5":
         break
 
 for contact in manager.get_all_contacts():
