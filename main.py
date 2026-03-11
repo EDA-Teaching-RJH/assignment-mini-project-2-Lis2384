@@ -11,7 +11,15 @@ while True:
     choice = input("Option: ")
 
     if choice == "1":
-        
+        name = input("Name: ")
+        phone = input("Phone Number: ")
+        email = input("Email: ")
+        try:
+            contact = Contact(name, phone, email)
+            manager.add_contact(contact)
+            print("Contact Added")
+        except ValueError as error:
+            print(error)
 
 contact1 = Contact("Lis Pireva", "1234567890", "lis@example.com")
 contact2 = Contact("dave", "1234567899", "dave@example.com")
