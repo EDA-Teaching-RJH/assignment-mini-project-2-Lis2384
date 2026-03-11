@@ -24,6 +24,14 @@ while True:
     elif choice == "2":
         for contact in manager.get_all_contacts():
             print(contact)
+    
+    elif choice == "3":
+        email = input("Email you want to search: ")
+        contact = manager.find_by_email(email)
+        if contact:
+            print(contact)
+        else:
+            print("Contact not found")
 
 contact1 = Contact("Lis Pireva", "1234567890", "lis@example.com")
 contact2 = Contact("dave", "1234567899", "dave@example.com")
