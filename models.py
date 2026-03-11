@@ -102,4 +102,7 @@ class ContactManager:
         name, phone, email, created_at = parts
         return cls(name, phone, email, created_at)
     
-    
+    def save_contacts(self):
+        with open(self.filename, "w", encoding="utf-8") as file:
+            for contact in self.contacts:
+                file.write(contact.to_line())
