@@ -7,7 +7,7 @@ while True:
     print("1) Add Contact")
     print("2) View Contacts")
     print("3) Search Contacts")
-    print("4) Exit)")
+    print("4) Exit")
     choice = input("Option: ")
 
     if choice == "1":
@@ -20,6 +20,10 @@ while True:
             print("Contact Added")
         except ValueError as error:
             print(error)
+    
+    elif choice == "2":
+        for contact in manager.get_all_contacts():
+            print(contact)
 
 contact1 = Contact("Lis Pireva", "1234567890", "lis@example.com")
 contact2 = Contact("dave", "1234567899", "dave@example.com")
