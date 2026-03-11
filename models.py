@@ -53,3 +53,13 @@ class Contact(Person):
         self.set_email(email)
         self._created_at = datetime.now().strftime("%Y-%M-%D %H:%M:%S")
 
+
+class ContactManager:
+    def __init__(self):
+        self.contacts = []
+
+    def add_contact(self, contact):
+        self.contacts.append(contact)
+    
+    def get_all_contacts(self):
+        return self.contacts
