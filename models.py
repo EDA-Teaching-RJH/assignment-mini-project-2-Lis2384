@@ -78,3 +78,15 @@ class ContactManager:
             if contact.get_email() == email:
                 return contact
         return None
+    
+    def update_contact(self, email, new_name=None, new_phone=None, new_email=None):
+        contact = self.find_by_email(email)
+        if contact is None:
+            return False
+        if new_name:
+            contact.set_name(new_name)
+        if new_phone:
+            contact.set_phone(new_phone)
+        if new_email:
+            contact.set_email(new_email)
+        return True
