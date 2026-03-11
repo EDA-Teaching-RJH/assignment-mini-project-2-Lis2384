@@ -32,12 +32,9 @@ while True:
             print(contact)
         else:
             print("Contact not found")
-
-contact1 = Contact("Lis Pireva", "1234567890", "lis@example.com")
-contact2 = Contact("dave", "1234567899", "dave@example.com")
-
-manager.add_contact(contact1)
-manager.add_contact(contact2)
+    
+    elif choice == "4":
+        break
 
 for contact in manager.get_all_contacts():
     print(contact)
