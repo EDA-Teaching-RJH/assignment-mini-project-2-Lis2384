@@ -1,6 +1,7 @@
 from models import Contact, ContactManager
 
-manager = ContactManager()
+manager = ContactManager("contacts.txt")
+manager.load_contacts()
 
 while True:
     print("---Menu---")
@@ -18,9 +19,11 @@ while True:
         try:
             contact = Contact(name, phone, email)
             manager.add_contact(contact)
+            manager.save_contacts()
             print("Contact Added")
         except ValueError as error:
             print(error)
+        
     
     elif choice == "2":
         for contact in manager.get_all_contacts():
@@ -47,6 +50,7 @@ while True:
                 new_phone if new_phone else None,
                 new_email if new_email else None
             )
+            manager.save_contacts()
             if updated:
                 print("Contact updated")
             else:
@@ -55,6 +59,8 @@ while True:
             print(error)
     
     elif choice == "5":
+        manager.save_contacts()
+        print("Goodbye")
         break
 
 for contact in manager.get_all_contacts():

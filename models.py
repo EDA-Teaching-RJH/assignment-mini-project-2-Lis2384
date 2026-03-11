@@ -28,6 +28,18 @@ class Person:
         if not re.fullmatch(phone_pattern, phone):
             raise ValueError("You must fill out a valid number")
         self._phone = phone
+
+class Contact(Person):
+    def __init__(self, name, phone, email, created_at=None):
+        super().__init__(name, phone)
+
+        if created_at is None:
+            self._created_at = datetime.now().strftime("%Y-%M-%D %H:%M:%S")
+        else:
+            self._created_at = created_at
+
+        self._email = ""
+        self.set_email(email)
     
     def get_email(self):
         return self._email
@@ -45,15 +57,17 @@ class Person:
     def __str__(self):
         return f"{self.get_name()} | {self.get_phone()} | {self.get_email()} | {self.get_created_at()}"
     
+    def to_line(self):
+        return f"{self.get_name()}|{self.get_phone()}|{self.get_email()}|{self.get_created_at()}"
+    
+    @classmethod
+    def from_line(cls, line):
+        parts = line.strip().split("|")
 
-class Contact(Person):
-    def __init__(self, name, phone, email, created_at=None):
-        if created_at is None:
-            self._created_at = datetime.now().strftime("%Y-%M-%D %H:%M:%S")
-        else:
-            self._created_at = created_at
-        self._email = ""
-        self.set_email(email)
+        if len(parts) != 4:
+            raise ValueError("Contact data is corrupted")
+        name, phone, email, created_at = parts
+        return cls(name, phone, email, created_at)
 
 class ContactManager:
     def __init__(self, filename="contacts.txt"):
@@ -93,16 +107,21 @@ class ContactManager:
             contact.set_email(new_email)
         return True
 
-    def to_line(self):
-        return f"{self.get_name()}|{self.get_phone()}|{self.get_email()}|{self.get_created_at()}"
-    
-    @classmethod
-    def from_line(cls, line):
-        parts = line.strip().split("|")
-        name, phone, email, created_at = parts
-        return cls(name, phone, email, created_at)
-    
     def save_contacts(self):
         with open(self.filename, "w", encoding="utf-8") as file:
             for contact in self.contacts:
                 file.write(contact.to_line())
+    
+    def load_contacts(self):
+        self.contacts = []
+
+        try:
+            with open(self.filename, "r", encoding="utf-8") as file:
+                for line in file:
+                    line = line.strip()
+                    if line:
+                        self.contacts.append(Contact.from_line(line))
+
+        except FileNotFoundError:
+            with open(self.filename, "w", encoding="utf-8"):
+                pass
