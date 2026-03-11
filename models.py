@@ -71,3 +71,10 @@ class ContactManager:
             if name in contact.get_name().lower():
                 matches.append(contact)
         return matches
+    
+    def find_by_email(self, email):
+        email = email.strip().lower()
+        for contact in self.contacts:
+            if contact.get_email() == email:
+                return contact
+        return None
