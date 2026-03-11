@@ -47,15 +47,17 @@ class Person:
     
 
 class Contact(Person):
-    def __init__(self, name, phone, email):
-        super().__init__(name,phone)
+    def __init__(self, name, phone, email, created_at=None):
+        if created_at is None:
+            self._created_at = datetime.now().strftime("%Y-%M-%D %H:%M:%S")
+        else:
+            self._created_at = created_at
         self._email = ""
         self.set_email(email)
-        self._created_at = datetime.now().strftime("%Y-%M-%D %H:%M:%S")
-
 
 class ContactManager:
-    def __init__(self):
+    def __init__(self, filename="contacts.txt"):
+        self.filename = filename
         self.contacts = []
 
     def add_contact(self, contact):
@@ -99,3 +101,5 @@ class ContactManager:
         parts = line.strip().split("|")
         name, phone, email, created_at = parts
         return cls(name, phone, email, created_at)
+    
+    
