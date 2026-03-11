@@ -20,5 +20,12 @@ class TestContact(unittest.TestCase):
         manager.add_contact(contact)
         self.assertEqual(len(manager.get_all_contacts()), 1)
 
+    def test_find_by_email(self):
+        manager = ContactManager()
+        contact = Contact("Lis Pireva", "07718833017", "lis@example.com")
+        manager.add_contact(contact)
+        result = manager.find_by_email("lis@example.com")
+        self.assertIsNotNone(result)
+        
 if __name__ == "__main__":
     unittest.main()
