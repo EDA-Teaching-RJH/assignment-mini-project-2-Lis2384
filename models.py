@@ -63,3 +63,11 @@ class ContactManager:
     
     def get_all_contacts(self):
         return self.contacts
+    
+    def find_by_name(self, name):
+        name = name.strip().lower()
+        matches = []
+        for contact in self.contacts:
+            if name in contact.get_name().lower():
+                matches.append(contact)
+        return matches
