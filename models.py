@@ -90,3 +90,12 @@ class ContactManager:
         if new_email:
             contact.set_email(new_email)
         return True
+
+    def to_line(self):
+        return f"{self.get_name()}|{self.get_phone()}|{self.get_email()}|{self.get_created_at()}"
+    
+    @classmethod
+    def from_line(cls, line):
+        parts = line.strip().split("|")
+        name, phone, email, created_at = parts
+        return cls(name, phone, email, created_at)
