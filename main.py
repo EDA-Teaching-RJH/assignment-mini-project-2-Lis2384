@@ -34,6 +34,26 @@ while True:
         else:
             print("Contact not found")
     
+    elif choice == "4":
+        email = input("current email: ")
+        new_name = input("New name: ").strip()
+        new_phone = input("New phone number: ").strip()
+        new_email = input("New email: ").strip()
+
+        try:
+            updated = manager.update_contact(
+                email,
+                new_name if new_name else None,
+                new_phone if new_phone else None,
+                new_email if new_email else None
+            )
+            if updated:
+                print("Contact updated")
+            else:
+                print("Not found")
+        except ValueError as error:
+            print(error)
+    
     elif choice == "5":
         break
 
