@@ -26,6 +26,14 @@ class TestContact(unittest.TestCase):
         manager.add_contact(contact)
         result = manager.find_by_email("lis@example.com")
         self.assertIsNotNone(result)
-        
+    
+    def test_update_contact(self):
+        manager = ContactManager()
+        contact = Contact("Lis Pireva", "07718833017", "lis@example.com")
+        manager.add_contact(contact)
+        manager.update_contact("lis@example.com", new_name="Lis Updated")
+        result = manager.find_by_email("lis@example.com")
+        self.assertEqual(result.get_name(), "Lis Updated")
+
 if __name__ == "__main__":
     unittest.main()
