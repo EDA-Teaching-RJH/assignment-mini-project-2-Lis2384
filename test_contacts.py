@@ -1,5 +1,7 @@
 import unittest
 from models import Contact, ContactManager
+import os
+import tempfile
 
 class TestContact(unittest.TestCase):
     def test_contact_creation(self):
@@ -35,5 +37,20 @@ class TestContact(unittest.TestCase):
         result = manager.find_by_email("lis@example.com")
         self.assertEqual(result.get_name(), "Lis Updated")
 
+    def test_save_and_load(self):
+        temp = tempfile.NamedTemporaryFile(delete=False)
+        temp.close()
+
+        manager = ContactManager(temp.name)
+        contact = Contact("Lis Pireva", "07718833017", "lis@example.com")
+        manager.add_contact(contact)
+        manager.save_contacts()
+
+        new_manager = ContactManager(temp.name)
+        new_manager.load_contacts()
+
+        self.assertEqual(len(new_manager.get_all_contacts()), 1)
+        os.remove(temp.name)
+        
 if __name__ == "__main__":
     unittest.main()
